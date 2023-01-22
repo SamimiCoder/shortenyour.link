@@ -1,0 +1,37 @@
+﻿@page
+@using shortenyour.link.Models;
+@model shortenyour.link.Areas.Identity.Pages.Account.Manage.LinkManagementModel
+@{
+    <h1>Link Management</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Owner Mail</th>
+                <th>Original URL</th>
+                <th>Shorted URL</th>
+                <th>Click Count</th>
+                <th>Link Balance</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var link in (IEnumerable<Link>) ViewData["Links"])
+            {
+                <tr>
+                    
+                    <td>@link.OwnerMail</td>
+                    <td>@link.originalUrl</td>
+                    <td>@link.LinkUrl</td>
+                    <td>@link.Click_Count</td>
+                    <td>@link.LinkBalance</td>
+                    <td>
+                        <a asp-page="/Edit" asp-route-id="@link.Id">Info</a>
+                        <a asp-page="/Delete" asp-route-id="@link.Id">Remove</a>
+                        <a asp-page="/Delete" asp-route-id="@link.Id">Give me My monies :)</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

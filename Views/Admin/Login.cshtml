@@ -1,0 +1,21 @@
+﻿@page
+@model shortenyour.link.Views.Admin.LoginModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "AdminLayout";
+}
+@{
+    <h1>LOGİN FORM</h1>
+    <h2>@TempData["LoginResult"]</h2>
+    <form method="POST" asp-controller="Admin" asp-action="Login">
+            <label for="AdminMail">Admin Mail</label>
+            <input type="email" placeholder="example@example.com" name="AdminMail" />
+            <label for="AdminPassword">Admin Password</label>
+            <input type="password" placeholder="*********" name="AdminPassword" />
+            <label for="AdminSecretKey">Admin Secret Key</label>
+            <input type="text" placeholder="Admin Secret Key" name="AdminSecretKey" />
+            <input type="submit" value="GİRİŞ" />
+    </form>
+}

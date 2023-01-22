@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model shortenyour.link.Models.Link
+@{
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Click Count</th>
+                <th>Owner Mail</th>
+                <th>Owner Id</th>
+                <th>original Url</th>
+                <th>Link Url</th>
+                <th>Link Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>@Model.Id</td>
+                    <td>@Model.Click_Count</td>
+                    <td>@Model.OwnerMail</td>
+                    <td>@Model.OwnerId</td>
+                    <td>@Model.originalUrl</td>
+                    <td>@Model.LinkUrl</td>
+                    <td>@Model.LinkBalance</td>
+                </tr>
+            
+        </tbody>
+    </table>
+
+}

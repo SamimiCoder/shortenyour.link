@@ -1,0 +1,16 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    
+*@
+
+@{
+    <div><h3>You Are redirecting in <span id="count"></span></h3></div>
+    <a id="redirectLink" href="@TempData["originalUrl"]">GO TO LİNK</a>
+   }
+<script>
+    // 6 saniye sonra yönlendirme yap
+    setTimeout(function () {
+        document.getElementById("redirectLink").style.display= "block";
+    }, 6000);
+</script>
