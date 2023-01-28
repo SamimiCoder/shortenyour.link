@@ -37,8 +37,6 @@ namespace shortenyour.link.Controllers
                 TempData["LoginResult"] = "BAŞARISIZ" + admin.AdminMail + " - " + admin.AdminPassword + " - " + admin.AdminSecretKey;
 
                 return RedirectToAction("Login");
-
-
             }
 
             HttpContext.Session.SetInt32("AdminId", adminModel.Id);
@@ -47,7 +45,6 @@ namespace shortenyour.link.Controllers
         }
         public async Task<IActionResult> Logout()
         {
-
             await HttpContext.SignOutAsync();
             if (User.Identity.IsAuthenticated)
             {
@@ -80,9 +77,6 @@ namespace shortenyour.link.Controllers
         public async Task<IActionResult> BanHim(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
-
-
-
             if (user != null)
             {
                 var result = await _userManager.DeleteAsync(user);
@@ -103,11 +97,18 @@ namespace shortenyour.link.Controllers
             return View();
 
         }
-        [HttpGet("/admin/hislinks/{id}")]
-        public async Task<IActionResult> hislinks(string id)
+        [HttpGet("/admin/hislinks/{Id}")]
+        public async Task<IActionResult> hislinks(string Id)
         {
-            var links = _linkContext.Links.FirstOrDefaultAsync(p => p.OwnerId == id);
-            return View(links);
+            var links = await _linkContext.Links.FirstOrDefaultAsync(p => p.OwnerId == Id);
+            if (links == null)
+            {
+                return RedirectToPage("NotFoundPage");
+            }
+            else
+            {
+                return View(links);
+            }
         }
         public IActionResult Index()
         {

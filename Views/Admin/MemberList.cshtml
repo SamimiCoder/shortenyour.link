@@ -3,7 +3,6 @@
 *@
 @model IEnumerable<shortenyour.link.Areas.Identity.Data.shortenyourlinkUser>
 @{
-   
         <table>
             <thead>
                 <tr>
@@ -22,11 +21,10 @@
                         <td>@item.Email</td>
                         <td>
                             <a asp-controller="admin" asp-action="memberDetails" asp-route-id="@item.Id">member Details</a>
-                        <a asp-controller="admin" asp-action="BanHim" asp-route-id="@item.Id">BAN USER</a>
-                        <a asp-controller="admin" asp-action="hislinks" asp-route-id="@item.Id">HİS LİNKS</a>
+                            <a asp-controller="admin" asp-action="BanHim" asp-route-id="@item.Id">BAN USER</a>
+                            <a asp-controller="admin" asp-action="hislinks" asp-route-id="@item.Id">HİS LİNKS</a>
                         </td>
                 </tr>
-                    
                 }
             </tbody>
         </table>   

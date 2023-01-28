@@ -1,19 +1,20 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Internal;
 using shortenyour.link.Areas.Identity.Data;
 using shortenyour.link.Data;
 using shortenyour.link.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("MemberContextConnection") ?? throw new InvalidOperationException("Connection string 'MemberContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("MySqlIdentity") ?? throw new InvalidOperationException("Connection string 'MemberContextConnection' not found.");
 
 builder.Services.AddDbContext<MemberContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
 
 builder.Services.AddDbContext<LinkContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
 builder.Services.AddDbContext<AdminContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
 builder.Services.AddDefaultIdentity<shortenyourlinkUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<MemberContext>();
 
