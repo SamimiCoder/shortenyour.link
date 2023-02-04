@@ -6,6 +6,8 @@ using shortenyour.link.Areas.Identity.Data;
 using shortenyour.link.Data;
 using shortenyour.link.Models;
 using System;
+using System.Net.Mail;
+using System.Net;
 
 namespace shortenyour.link.Controllers
 {
@@ -110,6 +112,7 @@ namespace shortenyour.link.Controllers
                 return View(links);
             }
         }
+
         public IActionResult Index()
         {
             return View();

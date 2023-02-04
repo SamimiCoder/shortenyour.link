@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using shortenyour.link.Areas.Identity.Data;
+using shortenyour.link.Services;
 
 namespace shortenyour.link.Areas.Identity.Pages.Account
 {
@@ -36,7 +37,9 @@ namespace shortenyour.link.Areas.Identity.Pages.Account
             IUserStore<shortenyourlinkUser> userStore,
             SignInManager<shortenyourlinkUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender
+
+            )
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace shortenyour.link.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+
         }
 
         /// <summary>
@@ -76,7 +80,7 @@ namespace shortenyour.link.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            
+
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 10)]
             [DataType(DataType.CreditCard)]
             [Display(Name = "Card Number")]
@@ -86,7 +90,7 @@ namespace shortenyour.link.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            
+
             [DataType(DataType.Text)]
             [Display(Name = "LastName")]
             public string LastName { get; set; }
@@ -95,7 +99,7 @@ namespace shortenyour.link.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            
+
             [DataType(DataType.Text)]
             [Display(Name = "Name")]
             public string Name { get; set; }
@@ -126,7 +130,7 @@ namespace shortenyour.link.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-        } 
+        }
 
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -144,7 +148,7 @@ namespace shortenyour.link.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 user.CardNo = Input.CardNo;
                 user.Name = Input.Name;
-                user.LastName= Input.LastName;
+                user.LastName = Input.LastName;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
