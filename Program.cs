@@ -12,7 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("MySqlIdentity"
 
 builder.Services.AddDbContext<MemberContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
-
+builder.Services.AddDbContext<AnnouncementContext>(options =>
+    options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
 builder.Services.AddDbContext<LinkContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
 builder.Services.AddDbContext<AdminContext>(options =>

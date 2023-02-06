@@ -24,6 +24,20 @@ namespace shortenyour.link.Controllers
             _userManager = userManager;
             _linkContext = linkContext;
         }
+        [HttpGet]
+        public IActionResult adminRegister()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> adminRegister([FromForm] string AdminSecretKey, string AdminMail, string AdminPassword)
+        {
+            var admin = new Admin { AdminSecretKey = AdminSecretKey, AdminMail = AdminMail, AdminPassword = AdminPassword };
+            _adminContext.Admins.Add(admin);
+            await _adminContext.SaveChangesAsync();
+            return RedirectToAction("Index", "admin");
+        }
         public IActionResult Login()
         {
             return View();
@@ -37,7 +51,6 @@ namespace shortenyour.link.Controllers
             if (adminModel == null)
             {
                 TempData["LoginResult"] = "BAŞARISIZ" + admin.AdminMail + " - " + admin.AdminPassword + " - " + admin.AdminSecretKey;
-
                 return RedirectToAction("Login");
             }
 
