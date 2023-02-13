@@ -17,10 +17,13 @@
                             Announcement procedures
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" asp-controller="admin" asp-action="AnnouncementList">Announcement list</a></li>
-                            <li><a class="dropdown-item" asp-controller="admin" asp-action="AddAnnouncement">AddAnnouncement</a></li>
+                            <li><a class="dropdown-item" asp-controller="Announcement" asp-action="Index">Announcement list</a></li>
+                           
                         </ul>
                     </div>
+                </li>
+                <li>
+                    <a asp-action="LogPanel" asp-controller="admin">Live Log Panel</a>
                 </li>
             </ul>
         </nav>

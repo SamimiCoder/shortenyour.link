@@ -6,6 +6,9 @@ using shortenyour.link.Areas.Identity.Data;
 using shortenyour.link.Data;
 using shortenyour.link.Models;
 using shortenyour.link.Services;
+using Serilog;
+using Serilog.Formatting.Compact;
+using Serilog.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MySqlIdentity") ?? throw new InvalidOperationException("Connection string 'MemberContextConnection' not found.");
@@ -21,6 +24,15 @@ builder.Services.AddDbContext<AdminContext>(options =>
 builder.Services.AddDefaultIdentity<shortenyourlinkUser>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddEntityFrameworkStores<MemberContext>();
 
+Logger log = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/log.txt")
+    .WriteTo.MySQL(connectionString, "Logs", Serilog.Events.LogEventLevel.Information, false, 100, null)
+
+    .CreateLogger();
+
+builder.Host.UseSerilog(log);
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();

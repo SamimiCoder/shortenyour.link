@@ -17,13 +17,16 @@ namespace shortenyour.link.Controllers
         private readonly MemberContext _user;
         private readonly UserManager<shortenyourlinkUser> _userManager;
         private readonly LinkContext _linkContext;
-        public AdminController(AdminContext adminContext, MemberContext user, UserManager<shortenyourlinkUser> userManager, LinkContext linkContext)
+        readonly ILogger<AdminController> _logger;
+        public AdminController(ILogger<AdminController> logger, AdminContext adminContext, MemberContext user, UserManager<shortenyourlinkUser> userManager, LinkContext linkContext)
         {
             _adminContext = adminContext;
             _user = user;
             _userManager = userManager;
             _linkContext = linkContext;
+            _logger = logger;
         }
+
         [HttpGet]
         public IActionResult adminRegister()
         {
@@ -36,7 +39,9 @@ namespace shortenyour.link.Controllers
             var admin = new Admin { AdminSecretKey = AdminSecretKey, AdminMail = AdminMail, AdminPassword = AdminPassword };
             _adminContext.Admins.Add(admin);
             await _adminContext.SaveChangesAsync();
+
             return RedirectToAction("Index", "admin");
+
         }
         public IActionResult Login()
         {
