@@ -8,6 +8,7 @@ using shortenyour.link.Models;
 using System;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace shortenyour.link.Controllers
 {
@@ -18,13 +19,16 @@ namespace shortenyour.link.Controllers
         private readonly UserManager<shortenyourlinkUser> _userManager;
         private readonly LinkContext _linkContext;
         readonly ILogger<AdminController> _logger;
-        public AdminController(ILogger<AdminController> logger, AdminContext adminContext, MemberContext user, UserManager<shortenyourlinkUser> userManager, LinkContext linkContext)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AdminController(ILogger<AdminController> logger, AdminContext adminContext, MemberContext user, UserManager<shortenyourlinkUser> userManager, LinkContext linkContext, IHttpContextAccessor httpContextAccessor)
         {
             _adminContext = adminContext;
             _user = user;
             _userManager = userManager;
             _linkContext = linkContext;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+
         }
 
         [HttpGet]
@@ -36,9 +40,26 @@ namespace shortenyour.link.Controllers
         [HttpPost]
         public async Task<IActionResult> adminRegister([FromForm] string AdminSecretKey, string AdminMail, string AdminPassword)
         {
+            var httpContext = _httpContextAccessor.HttpContext;
+            var connection = httpContext.Features.Get<IHttpConnectionFeature>();
+            var remoteIpAddress = connection?.RemoteIpAddress;
+            var clientIpAddress = HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
             var admin = new Admin { AdminSecretKey = AdminSecretKey, AdminMail = AdminMail, AdminPassword = AdminPassword };
             _adminContext.Admins.Add(admin);
             await _adminContext.SaveChangesAsync();
+            if (connection == null)
+            {
+                _logger.LogInformation("Bir Admin Kayıt Oldu  : " + "Adamın ip :" + "CONNECTİON İS NULL");
+            }
+            else if (remoteIpAddress == null)
+            {
+                _logger.LogInformation("Bir Admin Kayıt Oldu : " + "Adamın ip :" + "LAN BU NE AQ ADAMIN İP YOK");
+            }
+            else
+            {
+                _logger.LogInformation("Bir Admin Kayıt Oldu : " + "Adamın ip :" + remoteIpAddress.ToString());
+            }
+
 
             return RedirectToAction("Index", "admin");
 
