@@ -12,7 +12,7 @@ public class MemberContext : IdentityDbContext<shortenyourlinkUser>
         : base(options)
     {
     }
-
+    public DbSet<shortenyourlinkUser> users { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -30,8 +30,8 @@ internal class ShortenyourlinkuserEntity : IEntityTypeConfiguration<shortenyourl
     {
         builder.Property(u => u.Name).HasMaxLength(256);
         builder.Property(u => u.LastName).HasMaxLength(256);
-        
+
         builder.Property(u => u.CardNo).HasMaxLength(256);
-        
+
     }
 }
