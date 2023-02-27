@@ -11,6 +11,6 @@ namespace shortenyour.link.Models
         [AllowNull]
         public string originalUrl { get; set; }
         public string LinkUrl { get; set; }
-        public decimal LinkBalance { get; set; } = 0;
+        public decimal LinkBalance { get; set; }
     }
 }

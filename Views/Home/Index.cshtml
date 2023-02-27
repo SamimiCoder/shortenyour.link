@@ -3,16 +3,11 @@
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center">    
     <h2>@TempData["Message"]</h2>
     <form method="post" asp-controller="home" asp-action="Index">
         <input type="url" name="originalUrl"/>
-        
-         
         <input type="submit" value="KISALT" />
-
     </form>
     <div itemid="shortedUrl">KISALTILMIŞ LİNK : https://www.shortenyour.link/@ViewData["ShortedLink"]</div>
 </div>

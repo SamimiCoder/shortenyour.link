@@ -13,6 +13,16 @@ namespace shortenyour.link.Data
 
         public DbSet<Link> Links { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Link>(entity =>
+            {
+                entity.Property(e => e.LinkBalance).HasColumnType("DECIMAL(18,2)");
+            });
+        }
+
     }
 
 }

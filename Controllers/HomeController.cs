@@ -40,7 +40,7 @@ namespace shortenyour.link.Controllers
             string LinkUrl = "";
             if (!User.Identity.IsAuthenticated)
             {
-                ModelState.AddModelError(string.Empty, "You must be logged in to shorten a link");
+                TempData["Message"] = "YOU MUST BE LOGGED İN FOR SHORTENİNG YOUR LİNK";
                 return RedirectToAction("Index", "home");
             }
             else
