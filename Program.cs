@@ -15,12 +15,18 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MySqlIdentity") ?? throw new InvalidOperationException("Connection string 'MemberContextConnection' not found.");
 
 builder.Services.AddDbContext<MemberContext>(options =>
+    options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))), ServiceLifetime.Transient);
+builder.Services.AddDbContext<ModsContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
 builder.Services.AddDbContext<LinkContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
 builder.Services.AddDefaultIdentity<shortenyourlinkUser>(options => options.SignIn.RequireConfirmedAccount = true)
 .AddEntityFrameworkStores<MemberContext>();
 
+// var optionsBuilder = new DbContextOptionsBuilder<ModsContext>();
+// optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString)));
+// var modsContext = new ModsContext(optionsBuilder.Options);
+// ModService mods = new ModService(modsContext);
 Logger log = new LoggerConfiguration()
     .MinimumLevel.Information()
     .WriteTo.Console()
@@ -44,10 +50,27 @@ builder.Services.AddHttpLogging(logging =>
     logging.MediaTypeOptions.AddText("application/javascript");
     logging.RequestBodyLogLimit = 4096;
     logging.ResponseBodyLogLimit = 4096;
-
 });
 
 var app = builder.Build();
+
+// app.Use((context, next) =>
+// {
+//     if (mods.MaintenanceIsEnabled())
+//     {
+//         if (context.Request.Path != "/Home/Maintenance")
+//         {
+//             context.Request.Scheme = "http";
+//             context.Response.Redirect("/Home/Maintenance");
+//         }
+//     }
+//     else
+//     {
+//         next.Invoke();
+//     }
+
+//     return next();
+// });
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -93,7 +93,7 @@ namespace shortenyour.link.Controllers
             TempData["originalUrl"] = originalUrl;
             if (originalUrl == null)
             {
-                return RedirectToAction("Error", "Home");
+                return RedirectToAction("notFound", "Home");
             }
             else
             {
@@ -118,6 +118,15 @@ namespace shortenyour.link.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult notFound()
+        {
+            return View();
+        }
+
+        public IActionResult Maintenance()
         {
             return View();
         }

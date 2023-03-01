@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Shorten Your Link - Free URL Shortener and Link Management Platform
+" />
+<meta name="robots" content="noindex">
+    <link rel="canonical" href="https://shortenyour.link/" />
+    <meta name="description" content="where you can easily shorten your long URLs and track clicks to earn money. Our user-friendly platform offers secure and reliable link shortening services, with advanced features like two-factor authentication and email verification. Join us today and start earning with every link you share!" />
+    <title>@ViewData["Title"] - shorten your .link</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/shortenyour.link.styles.css" asp-append-version="true" />
+</head>
+<body>
+    
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+   
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - shortenyour.link - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
