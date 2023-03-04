@@ -15,9 +15,11 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("MySqlIdentity") ?? throw new InvalidOperationException("Connection string 'MemberContextConnection' not found.");
 
 builder.Services.AddDbContext<MemberContext>(options =>
-    options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))), ServiceLifetime.Transient);
+    options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))).EnableSensitiveDataLogging(), ServiceLifetime.Transient);
 builder.Services.AddDbContext<ModsContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
+builder.Services.AddDbContext<NotificationContext>(options =>
+options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))).EnableSensitiveDataLogging());
 builder.Services.AddDbContext<LinkContext>(options =>
     options.UseMySql(connectionString, new MySqlServerVersion(ServerVersion.AutoDetect(connectionString))));
 builder.Services.AddDefaultIdentity<shortenyourlinkUser>(options => options.SignIn.RequireConfirmedAccount = true)

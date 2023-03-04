@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "LinkInfo";
+    Layout = "LinkManagementLayout.cshtml";
+    @model shortenyour.link.Models.Link;
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Link Id</th>
+            <th scope="col">Link Balance</th>
+            <th scope="col">Link Url</th>
+            <th scope="col">Click Count</th>
+            <th scope="col">Link Original Url</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.LinkBalance</td>
+            <td>@Model.LinkUrl</td>
+            <td>@Model.Click_Count</td>
+            <td>@Model.originalUrl</td>
+
+        </tr>
+    </tbody>
+</table>

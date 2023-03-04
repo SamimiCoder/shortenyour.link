@@ -1,0 +1,20 @@
+@{
+    ViewData["Title"] = "MoneyRequest";
+    var LinkId = TempData["LinkId"];
+}
+
+<h2>INFORMATİON PLEASE READ : We will send the amount you want to withdraw to your default IBAN number Additionally,
+    please note that if you choose not to send the money to your IBAN number by default, the only other option available
+    is to send it to your Bitcoin wallet. We do not offer any other withdrawal methods. If you prefer to receive the
+    funds to your Bitcoin wallet, please provide your wallet address as an optional message in the withdrawal request
+    form. By doing so, you will confirm that the wallet address belongs to you and that you are responsible for this
+    withdrawal request. Otherwise, we cannot accept responsibility for any errors or issues that may arise.
+</h2>
+<form asp-action="AddWithDrawalNotification" asp-controller="Notification">
+    <input type="text" name="NotificationCategory" disabled value="Money Request" id="">
+    <input type="text" name="NotificationText"
+        placeholder="Write here your link ıd and If you want to withdraw your money to your crypto wallet, write your crypto wallet code"
+        id="">
+    <input type="submit" value="send request">
+    <input type="number" disabled value="@LinkId">
+</form>

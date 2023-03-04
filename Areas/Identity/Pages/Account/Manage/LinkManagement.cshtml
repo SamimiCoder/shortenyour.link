@@ -16,19 +16,19 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var link in (IEnumerable<Link>) ViewData["Links"])
+            @foreach (var link in (IEnumerable<Link>)ViewData["Links"])
             {
                 <tr>
-                    
+
                     <td>@link.OwnerMail</td>
                     <td>@link.originalUrl</td>
                     <td>@link.LinkUrl</td>
                     <td>@link.Click_Count</td>
                     <td>@link.LinkBalance</td>
                     <td>
-                        <a asp-page="/Edit" asp-route-id="@link.Id">Info</a>
-                        <a asp-page="/Delete" asp-route-id="@link.Id">Remove</a>
-                        <a asp-page="/Delete" asp-route-id="@link.Id">Give me My monies :)</a>
+                        <a asp-action="LinkInfo" asp-controller="Link" asp-route-id="@link.Id">Info</a>
+                        <a asp-action="DeleteLink" asp-controller="Link" asp-route-id="@link.Id">Remove</a>
+                        <a class="btn btn-dark" asp-controller="Link" asp-action="MoneyRequest" asp-route-id="@link.Id">Money Request</a>
                     </td>
                 </tr>
             }
